@@ -1,0 +1,28 @@
+Applies to the code adapted from GFNOrg/gfn-lm-tuning (commit
+8c640356b5e7bf71f1333f9c384e6900857b1457): `ReplayBuffer.add` in
+posteriorbench_methods/gfn/replay.py, which adapts `ReplayBuffer.add` and the text normalization
+of `add_batch` in next_sentence/utils.py, and `disable_dropout` in
+posteriorbench_methods/gfn/policy.py, which adapts the dropout removal of next_sentence/train.py,
+lines 138-141.
+
+MIT License
+
+Copyright (c) 2023 GFNOrg
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

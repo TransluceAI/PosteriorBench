@@ -1,0 +1,365 @@
+{
+ "sessions": [
+  {
+   "conditions": {
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "dtype": "float32",
+    "torch": "2.11.0+cu128",
+    "transformers": "5.13.1",
+    "fla_importable": false,
+    "causal_conv1d_importable": false,
+    "task_id": "wc_0532/profanity",
+    "prompt_tokens": 24,
+    "response_tokens": 50,
+    "warmup": 2
+   },
+   "measurements": [
+    {
+     "operation": "generation",
+     "trains": "nothing",
+     "batch": 500,
+     "seconds": 5.1432513650506735,
+     "repetitions": 3
+    },
+    {
+     "operation": "generation",
+     "trains": "nothing",
+     "batch": 128,
+     "seconds": 1.6755840107798576,
+     "repetitions": 3
+    },
+    {
+     "operation": "forward",
+     "trains": "nothing",
+     "batch": 32,
+     "seconds": 0.1650182926096022,
+     "repetitions": 6
+    },
+    {
+     "operation": "training_forward",
+     "trains": "all_weights",
+     "batch": 32,
+     "seconds": 0.18908502394333482,
+     "repetitions": 6
+    },
+    {
+     "operation": "training_forward_backward",
+     "trains": "all_weights",
+     "batch": 32,
+     "seconds": 0.6709967474453151,
+     "repetitions": 6
+    },
+    {
+     "operation": "optimizer_step",
+     "trains": "all_weights",
+     "batch": 0,
+     "seconds": 0.02160494215786457,
+     "repetitions": 6
+    },
+    {
+     "operation": "generation",
+     "trains": "adapters",
+     "batch": 500,
+     "seconds": 5.3558902041986585,
+     "repetitions": 3
+    },
+    {
+     "operation": "training_forward",
+     "trains": "adapters",
+     "batch": 20,
+     "seconds": 0.207645945250988,
+     "repetitions": 6
+    },
+    {
+     "operation": "training_forward_backward",
+     "trains": "adapters",
+     "batch": 20,
+     "seconds": 0.6098633832298219,
+     "repetitions": 6
+    },
+    {
+     "operation": "optimizer_step",
+     "trains": "adapters",
+     "batch": 0,
+     "seconds": 0.002633048687130213,
+     "repetitions": 6
+    },
+    {
+     "operation": "generation",
+     "trains": "twist",
+     "batch": 64,
+     "seconds": 1.659050659276545,
+     "repetitions": 3
+    },
+    {
+     "operation": "update",
+     "trains": "twist",
+     "batch": 1000,
+     "seconds": 0.02138737076893449,
+     "repetitions": 6
+    }
+   ]
+  },
+  {
+   "conditions": {
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "dtype": "float32",
+    "torch": "2.11.0+cu128",
+    "transformers": "5.13.1",
+    "fla_importable": false,
+    "causal_conv1d_importable": false,
+    "task_id": "wc_0532/profanity",
+    "prompt_tokens": 24,
+    "response_tokens": 50,
+    "warmup": 3
+   },
+   "measurements": [
+    {
+     "operation": "generation",
+     "trains": "nothing",
+     "batch": 500,
+     "seconds": 5.155723510077223,
+     "repetitions": 3
+    },
+    {
+     "operation": "generation",
+     "trains": "nothing",
+     "batch": 128,
+     "seconds": 1.6702899349620566,
+     "repetitions": 3
+    },
+    {
+     "operation": "forward",
+     "trains": "nothing",
+     "batch": 32,
+     "seconds": 0.16285863448865712,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 1,
+     "seconds": 0.13511108251987025,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 2,
+     "seconds": 0.13233446498634294,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 3,
+     "seconds": 0.13689727400196716,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 4,
+     "seconds": 0.13832924992311746,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 5,
+     "seconds": 0.13853338995249942,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 6,
+     "seconds": 0.14116320497123525,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 7,
+     "seconds": 0.14615324151236564,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 8,
+     "seconds": 0.1445803940296173,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 9,
+     "seconds": 0.15321159799350426,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 10,
+     "seconds": 0.1555794409941882,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 11,
+     "seconds": 0.16080997948301956,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 12,
+     "seconds": 0.15971127396915108,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 13,
+     "seconds": 0.16571377957006916,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 14,
+     "seconds": 0.17390618694480509,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 15,
+     "seconds": 0.17388288397341967,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 16,
+     "seconds": 0.18013902002712712,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 17,
+     "seconds": 0.18620239401934668,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 18,
+     "seconds": 0.19664986949646845,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 19,
+     "seconds": 0.2030983610311523,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 20,
+     "seconds": 0.21906576806213707,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 21,
+     "seconds": 0.2289093365543522,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 22,
+     "seconds": 0.23673032352235168,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 23,
+     "seconds": 0.24543035600800067,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 24,
+     "seconds": 0.25264936697203666,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 25,
+     "seconds": 0.26971044298261404,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 26,
+     "seconds": 0.2783763299812563,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 27,
+     "seconds": 0.2862308155163191,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 28,
+     "seconds": 0.29747597803361714,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 29,
+     "seconds": 0.31083072448382154,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 30,
+     "seconds": 0.3232265179976821,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 31,
+     "seconds": 0.33223277650540695,
+     "repetitions": 10
+    },
+    {
+     "operation": "update",
+     "trains": "last_layers",
+     "batch": 32,
+     "seconds": 0.34473185101523995,
+     "repetitions": 10
+    }
+   ]
+  }
+ ]
+}

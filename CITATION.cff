@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "PosteriorBench"
+type: software
+authors:
+  - name: "Transluce"
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/TransluceAI/PosteriorBench"
+preferred-citation:
+  type: article
+  title: "PosteriorBench: Evaluating Behavior Posterior Sampling in Language Models"
+  authors:
+    - family-names: "Xun"
+      given-names: "Zhiyang"
+    - family-names: "Johnson"
+      given-names: "Daniel D."
+    - family-names: "Schwettmann"
+      given-names: "Sarah"
+    - family-names: "Chowdhury"
+      given-names: "Neil"
+  year: 2026
+  url: "https://arxiv.org/abs/2611.25735"

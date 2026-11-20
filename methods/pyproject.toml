@@ -1,0 +1,98 @@
+[project]
+name = "posteriorbench-methods"
+dynamic = ["version"]
+description = "The methods of the PosteriorBench paper (SFT, prompt selection, Steering, GFlowNet, CTL, KL-DPG, JS-DPG, GDC, and composition with the original model), built on the posteriorbench package."
+readme = "README.md"
+requires-python = ">=3.11"
+# The code is MIT. THIRD_PARTY_LICENSES holds the licenses of what is adapted from other
+# repositories: code of the GFlowNet family, the prompt texts of Bloom, and the rubrics and the
+# rubric judge's prompt of WeirdChat (ATTRIBUTION.md).
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_LICENSES/*.txt"]
+authors = [{ name = "Transluce" }]
+keywords = ["benchmark", "language models", "posterior sampling", "rare behaviors"]
+dependencies = [
+    "posteriorbench==1.0.0",
+    "numpy>=2.3",
+    "pyarrow>=18",
+    "safetensors>=0.4",
+    # One version each: what a method draws depends on the versions of torch and transformers.
+    # Qwen3.5 needs transformers 5. On Linux, torch comes from the CUDA 12.8 index below.
+    "torch==2.11.0",
+    "transformers==5.13.1",
+    "typer>=0.16",
+]
+
+[project.optional-dependencies]
+# Live metrics of a run (`--wandb-project`).
+wandb = ["wandb>=0.19"]
+# The scripts in figures/ that draw the paper's figures, for an install without the development
+# group, which has matplotlib too.
+figures = ["matplotlib>=3.9"]
+
+[dependency-groups]
+dev = [
+    "black==24.10.0",
+    "isort==5.12.0",
+    # The tests of figures/ and pyright over figures/ need it.
+    "matplotlib>=3.9",
+    "pyright>=1.1",
+    "pytest>=8",
+]
+
+[project.scripts]
+posteriorbench-methods = "posteriorbench_methods.cli:app"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "posteriorbench_methods/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["posteriorbench_methods"]
+
+[tool.uv]
+# The versions of numpy and wandb that the lock takes.
+constraint-dependencies = ["numpy==2.3.5", "wandb==0.28.0"]
+
+# On Linux the lock takes torch from the CUDA 12.8 index: the torch 2.11 wheel on PyPI is a
+# CUDA 13.0 build, which needs a newer driver.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+# The benchmark package is the project in the directory above this one.
+posteriorbench = { path = "..", editable = true }
+torch = { index = "pytorch-cu128", marker = "sys_platform == 'linux'" }
+
+[tool.pyright]
+include = ["posteriorbench_methods", "tests", "scripts", "figures"]
+# The scripts of figures/ import each other by module name.
+extraPaths = ["figures"]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
+reportUnknownArgumentType = false
+reportUnknownLambdaType = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The families have test modules of the same name (test_run.py, test_settings.py) in folders
+# without __init__.py; importlib mode imports each by its path.
+addopts = ["--import-mode=importlib"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+# Fixed classification, so isort gives the same result whether or not the packages are installed.
+known_first_party = ["posteriorbench_methods"]
+known_third_party = ["posteriorbench"]

@@ -1,0 +1,24 @@
+{
+ "threshold": 0.01,
+ "alternative": 0.02,
+ "level": "0.05 / (j (j + 1)) at rank j",
+ "minimum_power": 0.95,
+ "tests": [
+  {"rank": 1, "draws": 1857, "required_hits": 28, "size": 0.02388011840631665, "power": 0.9501404282569822},
+  {"rank": 2, "draws": 2315, "required_hits": 36, "size": 0.007681208164676013, "power": 0.9501525621244936},
+  {"rank": 3, "draws": 2598, "required_hits": 41, "size": 0.0037217377336050787, "power": 0.9501644815648851},
+  {"rank": 4, "draws": 2767, "required_hits": 44, "size": 0.0024000676951588602, "power": 0.9502157745565074},
+  {"rank": 5, "draws": 2935, "required_hits": 47, "size": 0.0015387983575623895, "power": 0.950168793110879},
+  {"rank": 6, "draws": 3047, "required_hits": 49, "size": 0.001144535913249793, "power": 0.9502215703656418},
+  {"rank": 7, "draws": 3158, "required_hits": 51, "size": 0.0008458555980144102, "power": 0.9500807834518109},
+  {"rank": 8, "draws": 3269, "required_hits": 53, "size": 0.0006252213760968057, "power": 0.9500004616473721},
+  {"rank": 9, "draws": 3325, "required_hits": 54, "size": 0.000539376649426216, "power": 0.950104342826822},
+  {"rank": 10, "draws": 3436, "required_hits": 56, "size": 0.0003987936227903726, "power": 0.9501018940187924},
+  {"rank": 11, "draws": 3492, "required_hits": 57, "size": 0.0003440959424251137, "power": 0.9502386055117708},
+  {"rank": 12, "draws": 3547, "required_hits": 58, "size": 0.00029490161041305905, "power": 0.9501462330263117},
+  {"rank": 13, "draws": 3602, "required_hits": 59, "size": 0.00025274571987996046, "power": 0.95006610670277},
+  {"rank": 14, "draws": 3658, "required_hits": 60, "size": 0.00021811173792646662, "power": 0.9502328250493772},
+  {"rank": 15, "draws": 3713, "required_hits": 61, "size": 0.00018694502526920805, "power": 0.95017418976308},
+  {"rank": 16, "draws": 3768, "required_hits": 62, "size": 0.00016023544487759207, "power": 0.9501263068388359}
+ ]
+}

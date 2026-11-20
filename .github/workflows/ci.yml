@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      # The lock takes torch for Linux from the CUDA 12.8 index. A CI runner has no GPU, so the
+      # same torch version is installed from the CPU index instead.
+      - name: Install the locked dependencies, with the CPU build of torch
+        run: |
+          uv sync --locked --no-install-package torch
+          uv pip install "torch==2.11.0" --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Check formatting
+        run: |
+          uv run --no-sync black --check .
+          uv run --no-sync isort --check-only .
+
+      - name: Run pyright
+        run: uv run --no-sync pyright
+
+      # The tests that read the dataset on the Hub fail, and do not skip, if it cannot be read.
+      - name: Run tests
+        env:
+          POSTERIORBENCH_REQUIRE_HUB: "1"
+        run: uv run --no-sync pytest tests/ -v
+
+  # The paper's methods: a project of its own in methods/, with its own lock and checks.
+  methods:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    defaults:
+      run:
+        working-directory: methods
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install the locked dependencies, with the CPU build of torch
+        run: |
+          uv sync --locked --no-install-package torch
+          uv pip install "torch==2.11.0" --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Check formatting
+        run: |
+          uv run --no-sync black --check .
+          uv run --no-sync isort --check-only .
+
+      - name: Run pyright
+        run: uv run --no-sync pyright
+
+      - name: Check the stored tables of the threshold test
+        run: uv run --no-sync python scripts/make_rank_table.py --check
+
+      - name: Run tests
+        run: uv run --no-sync pytest
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Build the wheel and the source distribution
+        run: uv build
+
+      - name: Check the wheel's contents
+        run: |
+          unzip -l dist/*.whl > wheel_files.txt
+          grep -q "posteriorbench/dataset/tasks/tasks.parquet" wheel_files.txt
+          grep -q "posteriorbench/dataset/evaluation/evaluation.parquet" wheel_files.txt
+          ! grep -E " (tools|tests|docs|examples|methods)/|posteriorbench_methods" wheel_files.txt
+
+      # methods/ is a project of its own and is in neither distribution of the package.
+      - name: Check that the source distribution holds no file of methods/
+        run: |
+          tar -tzf dist/*.tar.gz > sdist_files.txt
+          grep -q "/posteriorbench/dataset/tasks/tasks.parquet" sdist_files.txt
+          ! grep -E "^[^/]+/methods/|posteriorbench_methods" sdist_files.txt
+
+      - name: Install the wheel into a new environment and use it
+        run: |
+          uv venv wheel-env
+          uv pip install --python wheel-env/bin/python dist/*.whl --torch-backend cpu
+          cd wheel-env
+          bin/posteriorbench --version
+          bin/posteriorbench evaluate --task wc_1853/goblin_mention --sampler fallback
+          test "$(bin/posteriorbench list-tasks | wc -l)" -eq 21

@@ -1,0 +1,107 @@
+[project]
+name = "posteriorbench"
+dynamic = ["version"]
+description = "Benchmark code for PosteriorBench, a benchmark for sampling rare behaviors of language models."
+readme = "README.md"
+requires-python = ">=3.11"
+# The code is MIT. The two tables in posteriorbench/dataset are part of the dataset and are
+# released under ODC-By 1.0.
+license = "MIT AND ODC-By-1.0"
+license-files = ["LICENSE", "posteriorbench/dataset/LICENSE"]
+authors = [{ name = "Transluce" }]
+keywords = ["benchmark", "language models", "posterior sampling", "rare behaviors"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+# Version ranges. The versions the package is tested with are in uv.lock (`uv sync`).
+dependencies = [
+    "huggingface-hub>=1.5",
+    "numpy>=2.1",
+    "pyarrow>=18",
+    "torch>=2.11",
+    "transformers>=5.13.1,<6",
+    "typer>=0.16",
+]
+
+[dependency-groups]
+dev = [
+    "black==24.10.0",
+    "isort==5.12.0",
+    "pyright>=1.1",
+    "pytest>=8",
+]
+
+[project.scripts]
+posteriorbench = "posteriorbench.cli:app"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "posteriorbench/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["posteriorbench"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/posteriorbench",
+    "/tests",
+    "/tools",
+    "/examples",
+    "/docs",
+    "/CHANGELOG.md",
+    "/CITATION.cff",
+    "/CONTRIBUTING.md",
+]
+
+[tool.uv]
+# The numpy version the package is tested with.
+constraint-dependencies = ["numpy==2.3.5"]
+
+# On Linux the lock takes torch from the CUDA 12.8 index: the torch 2.11 wheel on PyPI is a
+# CUDA 13.0 build, which needs a newer driver.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128", marker = "sys_platform == 'linux'" }
+
+[tool.pyright]
+include = ["posteriorbench", "tests", "examples", "tools"]
+extraPaths = ["tools", "tests"]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
+reportUnknownArgumentType = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# tools/ holds scripts that are not part of the installed package; some tests import them.
+pythonpath = ["tools"]
+markers = [
+    "real_model: needs the real Qwen3.5-0.8B (skipped unless POSTERIORBENCH_REAL_MODEL is set)",
+]
+
+# methods/ is a project of its own, with its own configuration of these tools.
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+extend-exclude = "^/methods/"
+
+[tool.isort]
+profile = "black"
+line_length = 100
+# Fixed classification, so isort gives the same result whether or not the package is installed.
+known_first_party = ["posteriorbench"]
+extend_skip = ["methods"]
